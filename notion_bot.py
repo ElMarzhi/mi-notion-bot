@@ -1,18 +1,19 @@
 import logging
+import asyncio
+import signal
+import re
+import os  # <-- AÑADE ESTA LÍNEA
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 import notion_client
-import re
 
 # ==============================================================================
-# --- CONFIGURACIÓN: ¡RELLENA TUS DATOS AQUÍ! ---
+# --- CONFIGURACIÓN (AHORA USA VARIABLES DE ENTORNO) ---
 # ==============================================================================
-# Pega el token que te dio BotFather
-TELEGRAM_TOKEN = "7711850889:AAHzpT7OxMVo4Yprag_LLsZ46EdDQ7PuvVU"
-# Pega el "Internal Integration Token" de Notion
-NOTION_KEY = "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"
-# Pega el ID de 32 caracteres de tu base de datos de Notion
-DATABASE_ID = "220d0d8e38a180fd93dadd722701dd1d"
+# El código ahora leerá las claves de un lugar seguro en el servidor.
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+NOTION_KEY = os.environ.get("NOTION_KEY")
+DATABASE_ID = os.environ.get("DATABASE_ID")
 
 # Configuración del logging para ver mensajes de estado en la terminal
 logging.basicConfig(
