@@ -1,0 +1,1 @@
+worker: python notion_bot.py
